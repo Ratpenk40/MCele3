@@ -5,7 +5,7 @@ from matplotlib import animation
 import numpy as np
 from scipy import optimize
 import os
-from ROOT import *
+import ROOT
 
 point1 = [5, 20]
 point2 = [45, 20]
@@ -261,8 +261,9 @@ class plot2D():
     fig_id_ratio.canvas.draw()
 
         #root stuff
-    self.histo3DSlow = TH3F("plot3D-Slow", "plot3D-Slow", 50, 0, 50, 30 , 0, 30, 30, 0, 30 )
-    self.histo3DFast = TH3F("plot3D-Fast", "plot3D-Fast", 50, 0, 50, 30 , 0, 30, 30, 0, 30 )
+    self.histo3DSlow = ROOT.TH3F("plot3D-Slow", "plot3D-Slow", 50, 0, 50, 30 , 0, 30, 30, 0, 30 )
+    self.histo3DFast = ROOT.TH3F("plot3D-Fast", "plot3D-Fast", 50, 0, 50, 30 , 0, 30, 30, 0, 30 )
+
 
     x_3d = np.array(X_list)
     y_3d = np.array(Y_list)
