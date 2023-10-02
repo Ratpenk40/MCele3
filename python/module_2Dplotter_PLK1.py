@@ -4,6 +4,7 @@ from matplotlib.animation import FuncAnimation
 import numpy as np
 from scipy import optimize
 import os
+import ROOT
 
 class Plot2D:
     def __init__(self, number, limits, limits_spheroid, plk1_to_mex_multiplicator, v_plk1, v_mex5_slow, v_mex5_fast):
@@ -220,9 +221,10 @@ class Plot2D:
         self.ax_id_slice.legend(loc="upper right", frameon=False)
 
         #root stuff
-        self.histo3DSlow = TH3F("plot3D-Slow", "plot3D-Slow", 50, 0, 50, 30 , 0, 30, 30, 0, 30 )
-        self.histo3DFast = TH3F("plot3D-Fast", "plot3D-Fast", 50, 0, 50, 30 , 0, 30, 30, 0, 30 )
-        self.histo3DUnbound = TH3F("histo3DUnbound", "histo3DUnbound", 50, 0, 50, 30 , 0, 30, 30, 0, 30 )
+        self.histo3DSlow = ROOT.TH3F("plot3D-Slow", "plot3D-Slow", 50, 0, 50, 30, 0, 30, 30, 0, 30 )
+        self.histo3DFast = ROOT.TH3F("plot3D-Fast", "plot3D-Fast", 50, 0, 50, 30 , 0, 30, 30, 0, 30 )
+        self.histo3DUnbound = ROOT.TH3F("histo3DUnbound", "histo3DUnbound", 50, 0, 50, 30, 0, 30, 30, 0, 30 )
+
 
         x_3d = np.array(X_list)
         y_3d = np.array(Y_list)
