@@ -36,7 +36,7 @@ def main(argv):
   
   for filename in os.listdir(current_dir):
     if os.path.isdir(os.path.join(current_dir,filename)):
-        print filename
+        print(filename)
         list_dir.append(filename)
   
   

@@ -286,10 +286,10 @@ def main(argv):
     particle_family_plk1.Mex5SetSettings(k_fast_slow, k_slow_fast_low, k_slow_fast_high)
 
 
-  plots = plotter2D.plot2D(particles, limits3, limits, v_mex5_slow, v_mex5_fast)
+  plots = plotter2D.Plot2D(particles, limits3, limits, v_mex5_slow, v_mex5_fast)
   
   if (plk1):
-    plots_plk1 = plotter2DPLK1.plot2D(particles, limits3, limits, plk1_to_mex_multiplicator, v_plk1, v_mex5_slow, v_mex5_fast)
+    plots_plk1 = plotter2DPLK1.Plot2D(particles, limits3, limits, plk1_to_mex_multiplicator, v_plk1, v_mex5_slow, v_mex5_fast)
 
   
   #Get info from cpp libraries

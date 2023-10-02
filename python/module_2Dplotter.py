@@ -11,7 +11,7 @@ point1 = [5, 20]
 point2 = [45, 20]
 x_values = [point1[0], point2[0]]
 y_values = [point1[1], point2[1]]
-class plot2D():
+class Plot2D():
   
   def __init__(self, number, limits, limits_spheroid, v_mex5_slow, v_mex5_fast):
     

@@ -75,8 +75,8 @@ def main(argv):
    g = plt.figure(2)
    for columns in range(0,matrix.shape[1]):
      num+=1
-     print columns
-     print matrix[:,0]
+     print(columns)
+     print(matrix[:,0])
      #print matrix[:][columns]
      plt.plot(t, matrix[:,columns], marker='', color=palette(num), linewidth=1, alpha=0.9, label=columns)
    plt.xlabel('Embrio length ($\mathregular{\mu m}$)')
