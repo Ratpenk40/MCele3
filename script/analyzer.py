@@ -66,14 +66,14 @@ def main(argv):
     if directory.startswith('.'):
       continue
     directory = (os.path.join(current_dir,directory))
-    print directory
+    print(directory)
     matrix_val.append(process_file(os.path.join(directory, string_file)))
 
   assert([len(matrix_val[0])==len(i) for i in matrix_val])
   
   matrix_val = np.array(matrix_val)
-  print matrix_val
-  print matrix_val.shape
+  print(matrix_val)
+  print(matrix_val.shape)
 
   mean_array = np.mean(matrix_val, axis=0)
   stddev_array = np.std(matrix_val, axis=0) 
