@@ -48,7 +48,7 @@ class Plot2D:
                 self.x.append(item.x)
                 self.y.append(item.y)
 
-        self.plot()
+        #self.plot()
 
     def UpdateCpp(self, x_list, y_list, z_list, sliceD, slice_depth):
         self.x.clear()
@@ -63,9 +63,10 @@ class Plot2D:
             self.x.extend(x_list)
             self.y.extend(y_list)
 
-        self.plot()
+        #self.plot()
 
     def plot(self):
+        """
         fig3.clf()
 
         self.ax1 = fig3.add_subplot(2, 1, 1)
@@ -121,6 +122,7 @@ class Plot2D:
 
         plt.show(block=False)
         plt.pause(0.1)
+        """
 
     def conc_calc_cpp(self, X_list, Y_list, Z_list, id_list):
         fig_id1.clf()
