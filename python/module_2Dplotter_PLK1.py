@@ -124,7 +124,7 @@ class Plot2D:
         plt.pause(0.1)
         """
 
-    def conc_calc_cpp(self, X_list, Y_list, Z_list, id_list):
+    def conc_calcCpp(self, X_list, Y_list, Z_list, id_list):
         fig_id1.clf()
         fig_id_ratio.clf()
 
