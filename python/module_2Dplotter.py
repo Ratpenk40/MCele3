@@ -100,7 +100,7 @@ class Plot2D():
     self.ax1.plot(x_values, y_values)
     
     xbins_line = []
-    for xbin in range (point1[0]//density, point2[0]//density):
+    for xbin in np.arange(point1[0]/density, point2[0]/density):
       oneD.append((hist[xbin][point2[1]/density]))
       xbins_line.append(float(xbin-point1[0]/density))
     xbins = xbins[:xbins.shape[0]-1]
