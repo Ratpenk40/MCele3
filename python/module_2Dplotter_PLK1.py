@@ -34,7 +34,7 @@ class Plot2D:
         self.data_movie_1 = []
         self.data_movie_2 = []
 
-    def update(self, particles, sliceD, slice_depth):
+    def Update(self, particles, sliceD, slice_depth):
         self.x.clear()
         self.y.clear()
 
