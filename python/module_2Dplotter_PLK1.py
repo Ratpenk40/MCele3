@@ -50,7 +50,7 @@ class Plot2D:
 
         self.plot()
 
-    def update_cpp(self, x_list, y_list, z_list, sliceD, slice_depth):
+    def UpdateCpp(self, x_list, y_list, z_list, sliceD, slice_depth):
         self.x.clear()
         self.y.clear()
 
