@@ -83,6 +83,7 @@ class Plot2D():
     
     
   def Plot(self):
+    """
     fig.clf()
 
     self.ax1 = fig.add_subplot(2,1,1)
@@ -116,27 +117,27 @@ class Plot2D():
     self.ax2.plot(xbins, oneD)
     params, params_covariance = optimize.curve_fit(self.fit_func, xbins, oneD, bounds=((-np.inf, -np.inf), (np.inf,np.inf)))
     hist2 = self.ax2.plot(xbins,self.fit_func(xbins, params[0], params[1]), label='Fit')
-    self.ax2.set_title(" MEX-5 gradient intensity")
-    self.ax2.set_ylabel("Normal. intensity (a.u.)")
-    self.ax2.set_xlabel("Normal. embryo length")
+    #self.ax2.set_title(" MEX-5 gradient intensity")
+    #self.ax2.set_ylabel("Normal. intensity (a.u.)")
+    #self.ax2.set_xlabel("Normal. embryo length")
 
     self.list_m_fit_pre.append(params[0])
     
     self.klast = (params[0])
 
-
     t_pre = np.arange(len(self.list_m_fit_pre))
     self.ax3 = fig.add_subplot(2,2,4)
     self.ax3.plot(t_pre, self.list_m_fit_pre, marker='', linewidth=1, alpha=0.9)
-    self.ax3.set_title("Slope vs time MEX-5")
-    self.ax3.set_ylabel("Intensity gradient (dI/dx)")
-    self.ax3.set_xlabel("Time (s)")
+    #self.ax3.set_title("Slope vs time MEX-5")
+    #self.ax3.set_ylabel("Intensity gradient (dI/dx)")
+    #self.ax3.set_xlabel("Time (s)")
 
 
     fig.canvas.draw()
 
     #plt.show(block=False)
     plt.pause(0.1)
+    """
 
     #
   def conc_calcCpp(self, X_list, Y_list, Z_list, id_list):
@@ -319,7 +320,7 @@ class Plot2D():
     
     fig_root_based.canvas.draw()
     
-    plt.show(block=False)
+    #plt.show(block=False)
     plt.pause(0.1)
     
     return ratio2.tolist(), conc_root_mex5_slow.tolist(), conc_root_mex5_fast.tolist(), v_average.tolist()

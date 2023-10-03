@@ -63,9 +63,10 @@ class Plot2D:
             self.x.extend(x_list)
             self.y.extend(y_list)
 
-        self.plot()
+        #self.plot()
 
     def plot(self):
+        """
         fig3.clf()
 
         self.ax1 = fig3.add_subplot(2, 1, 1)
@@ -74,9 +75,9 @@ class Plot2D:
         self.ax1.set_xlabel("Long axis (um)")
         self.ax1.set_ylabel("Short axis (um)")
         fig3.colorbar(im)
-        oneD = []
 
-        density = self.limits[0][1] / self.limits[0][1]
+        oneD = []
+        density = self.limits[0][1] / self.limits[0][1] ## what?
 
         # defining line
         point1 = [5, 20]
@@ -103,9 +104,9 @@ class Plot2D:
         self.ax2.plot(xbins, oneD)
         params, params_covariance = optimize.curve_fit(self.fit_func, xbins, oneD, bounds=((-np.inf, -np.inf), (np.inf, np.inf)))
         hist2 = self.ax2.plot(xbins, self.fit_func(xbins, params[0], params[1]), label='Fit')
-        self.ax2.set_title(" PLK-1 gradient intensity")
-        self.ax2.set_ylabel("Normal. intensity (a.u.)")
-        self.ax2.set_xlabel("Normal. embryo length")
+        #self.ax2.set_title(" PLK-1 gradient intensity")
+        #self.ax2.set_ylabel("Normal. intensity (a.u.)")
+        #self.ax2.set_xlabel("Normal. embryo length")
         self.list_m_fit_pre.append(params[0])
 
         self.klast = params[0]
@@ -121,7 +122,7 @@ class Plot2D:
 
         #plt.show(block=False)
         plt.pause(0.1)
-
+        """
 
     def conc_calcCpp(self, X_list, Y_list, Z_list, id_list):
         fig_id1.clf()
@@ -276,7 +277,7 @@ class Plot2D:
 
         fig_id_ratio.canvas.draw()
 
-        plt.show(block=False)
+        #plt.show(block=False)
         plt.pause(0.1)
 
         return conc_root_mex5_slow, conc_root_mex5_fast, conc_root_plk1_unbound, v_average
