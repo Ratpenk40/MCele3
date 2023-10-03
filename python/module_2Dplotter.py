@@ -204,8 +204,8 @@ class Plot2D():
 
 
     for xbin in range (0, len(xbins)-1):
-        id0_slice.append((hist[xbin][15/density]))
-        id1_slice.append((hist1[xbin][15/density]))
+        id0_slice.append((hist[xbin][int(15/density)]))  #modified here to solve float issue of index?
+        id1_slice.append((hist1[xbin][int(15/density)]))
         xbins_line.append(xbin)
         
     for xbin in range (0, len(xbins)-1):
