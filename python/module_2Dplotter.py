@@ -64,7 +64,7 @@ class Plot2D():
         for index, item in enumerate (particles):            
             self.x.append(item.x)
             self.y.append(item.y)
-    #self.Plot()
+    self.Plot()
     print(len(self.x))
     
   def UpdateCpp(self, x_list, y_list, z_list, sliceD, slice_depth):
@@ -79,11 +79,10 @@ class Plot2D():
         for index, item in enumerate (x_list):            
             self.x.append(x_list[index])
             self.y.append(y_list[index])
-    #self.Plot()
+    self.Plot()
     
     
   def Plot(self):
-    """
     fig.clf()
 
     self.ax1 = fig.add_subplot(2,1,1)
@@ -101,7 +100,7 @@ class Plot2D():
     
     xbins_line = []
     for xbin in range(int(point1[0]/density), int(point2[0]/density)):
-      oneD.append((hist[xbin][point2[1]/density]))
+      oneD.append((hist[xbin][int(point2[1]/density)]))
       xbins_line.append(float(xbin-point1[0]/density))
     xbins = xbins[:xbins.shape[0]-1]
     xbins = xbins/np.max(xbins)
@@ -136,9 +135,8 @@ class Plot2D():
 
     fig.canvas.draw()
 
-    plt.show(block=False)
+    #plt.show(block=False)
     plt.pause(0.1)
-        """
 
     #
   def conc_calcCpp(self, X_list, Y_list, Z_list, id_list):
