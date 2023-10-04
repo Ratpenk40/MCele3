@@ -283,11 +283,11 @@ class Plot2D:
 
         return conc_root_mex5_slow, conc_root_mex5_fast, conc_root_plk1_unbound, v_average
 
-    def fill_draw_movie(self):
+    def FillDrawMovie(self):
         self.ims_movie1.append(self.data_movie_1)
         self.ims_movie2.append(self.data_movie_2)
 
-    def draw_movie(self, path):
+    def DrawMovie(self, path):
         fig, ax = plt.subplots()
         container = []
 
