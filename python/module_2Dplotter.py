@@ -86,7 +86,8 @@ class Plot2D():
     fig.clf()
 
     self.ax1 = fig.add_subplot(2,1,1)
-    hist, xbins, ybins, im = self.ax1.hist2d(self.x, self.y, bins=self.limits[0][1], range=self.limits, density=False, norm=False)
+    hist, xbins, ybins, im = self.ax1.hist2d(self.x, self.y, bins=50, range=self.limits, density=False, norm=False) 
+    # ^^^ setting bins to 50 which is the length of the embryo in um, to override the bins issues with self.limits[0][1]
     self.ax1.set_title("2D distribution MEX-5") 
     self.ax1.set_xlabel("Long axis (um)")
     self.ax1.set_ylabel("Short axis (um)")
