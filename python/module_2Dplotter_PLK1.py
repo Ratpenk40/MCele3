@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
-import matplotlib.colors as mcolors
-from matplotlib.animation import FuncAnimation
+import matplotlib.colors as mcolorson
+from matplotlib import animation
 import numpy as np
 from scipy import optimize
 import os

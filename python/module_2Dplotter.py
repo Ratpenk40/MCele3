@@ -1,6 +1,5 @@
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
-from matplotlib.animation import FuncAnimation
 from matplotlib import animation
 import numpy as np
 from scipy import optimize
@@ -352,7 +351,7 @@ class Plot2D():
     im_ani2.save(os.path.join(path,'Gradient.gif'), writer='imagemagick', fps=10, dpi=50)
     print("done")
     
-    plt.show(block=False)
+    #plt.show(block=False)
     
   def fit_func(self, x, a, b):
     return (a*x+b)
