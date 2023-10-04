@@ -51,17 +51,17 @@ class Plot2D:
         self.plot()
 
     def UpdateCpp(self, x_list, y_list, z_list, sliceD, slice_depth):
-        self.x.clear()
-        self.y.clear()
-
-        if sliceD:
-            for x, z in zip(x_list, z_list):
-                if self.center_y - slice_depth / 2.0 < z < self.center_y + slice_depth / 2.0:
-                    self.x.append(x)
-                    self.y.append(y_list)
+        del self.x[:]
+        del self.y[:]
+        if (sliceD== True):
+            for index, item in enumerate (x_list):
+                if (z_list[index] > float(self.center_y)-float(slice_depth)/2. and z_list[index]  < float(self.center_y)+float(slice_depth)/2.):
+                        self.x.append(x_list[index])
+                        self.y.append(y_list[index])
         else:
-            self.x.extend(x_list)
-            self.y.extend(y_list)
+            for index, item in enumerate (x_list):            
+                self.x.append(x_list[index])
+                self.y.append(y_list[index])
 
         self.plot()
 
