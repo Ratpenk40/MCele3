@@ -67,7 +67,6 @@ class Plot2D:
 
     def plot(self):
         fig3.clf()
-        print(self.limits)
         
         self.ax1 = fig3.add_subplot(2, 1, 1)
 
