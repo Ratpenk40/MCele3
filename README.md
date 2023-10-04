@@ -20,19 +20,20 @@ In particular, it focuses on PLK-1 and MEX-5 proteins.
 * CERN ROOT
 * Boost C++ libraries - including boost.python module
 
-## System/Package versions tested
+## System/Package versions tested on HPC UNIGE Cluster
 ***
 
 * OS: Ubuntu18 - Fedora33
+* Tool-chain: foss/2019b
 * cmake: 3.17.4
 * make: 4.2.1 
-* gcc: 10.3.1 20210422
-* Python: 2.7.18
-* Matplotlib: 2.2.5
+* gcc: 8.3.0
+* Python: 3.7.4
+* Matplotlib: 3.1.1
 * numpy: 1.16.6
 * scipy: 1.2.3
-* CERN ROOT: 6.22/07 
-* Boost C++ libraries - including boost.python module: 1.69
+* CERN ROOT: 6.20.04 
+* Boost C++ libraries - including boost.python module: 1.71
 ***
 The software may run with other versions. Python3 is NOT supported.
 
@@ -41,7 +42,7 @@ The software may run with other versions. Python3 is NOT supported.
 ***
 To install, please follow the instructions below:
 ```
-$ git clone https://github.com/sofiabarbieri/MCEle_ProteinGradient.git
+$ git clone https://github.com/Ratpenk40/MCele3.git
 
 $ mkdir install
 $ mkdir build
