@@ -41,6 +41,7 @@ class eloG:
 
 #Start here      
 def main(argv):
+  print("Starting...")
 
   #define vel and k param
   v_mex5_fast = 0.
@@ -53,6 +54,7 @@ def main(argv):
         
   now = datetime.now()
   date_time = now.strftime("%d_%m_%Y_%H_%M_%S")
+  print("Start time: ", date_time)
   
   
   if not os.path.exists("logs/"+date_time):
@@ -399,9 +401,15 @@ def main(argv):
         if (drawMovie):
             plots_plk1.FillDrawMovie()
 
-"""   if (drawMovie):
-    python main.py -p 1000000 --bound --plk1 --threeD --slice --settings settingsTemplate plots.DrawMovie("logs/"+date_time)
-    plots_plk1.DrawMovie("logs/"+date_time) """
+  if (drawMovie):
+    plots.DrawMovie("logs/"+date_time)
+    if (plk1):
+      plots_plk1.DrawMovie("logs/"+date_time)
+  
+  end_time = datetime.now()
+  end_date_time = end_time.strftime("%d_%m_%Y_%H_%M_%S")
+  print("Ending time: ", end_date_time)
+  print("Finished!")
 
 if __name__ == "__main__":
    main(sys.argv[1:])   
