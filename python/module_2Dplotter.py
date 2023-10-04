@@ -323,7 +323,9 @@ class Plot2D():
     
     #plt.show(block=False)
     #plt.pause(0.1)
-    
+    del self.histo3DSlow
+    del self.histo3DFast
+
     return ratio2.tolist(), conc_root_mex5_slow.tolist(), conc_root_mex5_fast.tolist(), v_average.tolist()
   
   def FillDrawMovie(self):

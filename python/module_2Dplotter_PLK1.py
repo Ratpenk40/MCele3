@@ -281,6 +281,10 @@ class Plot2D:
         #plt.show(block=False)
         #plt.pause(0.1)
 
+        del self.histo3DSlow
+        del self.histo3DFast
+        del self.histo3DUnbound
+
         return conc_root_mex5_slow, conc_root_mex5_fast, conc_root_plk1_unbound, v_average
 
     def FillDrawMovie(self):
