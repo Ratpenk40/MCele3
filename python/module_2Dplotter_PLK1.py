@@ -69,14 +69,14 @@ class Plot2D:
         fig3.clf()
 
         self.ax1 = fig3.add_subplot(2, 1, 1)
-        hist, xbins, ybins, im = self.ax1.hist2d(self.x, self.y, bins=self.limits[0][1], range=self.limits)
+        hist, xbins, ybins, im = self.ax1.hist2d(self.x, self.y, bins=self.limits[0][1], range=self.limits, density=False, norm=False)
         self.ax1.set_title("2D distribution PLK-1")
         self.ax1.set_xlabel("Long axis (um)")
         self.ax1.set_ylabel("Short axis (um)")
         fig3.colorbar(im)
         oneD = []
 
-        density = self.limits[0][1] / self.limits[0][1]
+        #density = self.limits[0][1] / self.limits[0][1]
 
         # defining line
         point1 = [5, 20]
@@ -86,12 +86,12 @@ class Plot2D:
         self.ax1.plot(x_values, y_values)
 
         xbins_line = []
-        for xbin in range(int(point1[0] / density), int(point2[0] / density)):
-            oneD.append(hist[xbin][int(point2[1] / density)])
-            xbins_line.append(float(xbin - point1[0] / density))
+        for xbin in range(point1[0], point2[0]):
+            oneD.append(hist[xbin][point2[1]])  # original statement int(point2[1] / density)
+            xbins_line.append(float(xbin - point1[0]))
 
-        xbins = xbins[: xbins.shape[0] - 1]
-        xbins = xbins / np.max(xbins)
+        #xbins = xbins[: xbins.shape[0] - 1]
+        #xbins = xbins / np.max(xbins)
         xbins_line = xbins_line / np.max(xbins_line)
         xbins = xbins_line
 
@@ -117,10 +117,10 @@ class Plot2D:
         self.ax3.set_ylabel("Intensity gradient (dI/dx)")
         self.ax3.set_xlabel("Time (s)")
 
-        fig3.canvas.draw()
+        #fig3.canvas.draw()
 
         #plt.show(block=False)
-        plt.pause(0.1)
+        #plt.pause(0.1)
 
 
     def conc_calcCpp(self, X_list, Y_list, Z_list, id_list):
@@ -274,10 +274,10 @@ class Plot2D:
         self.av_velocity.set_ylabel("Mean velocity of PLK-1 species")
         self.av_velocity.set_xlabel("Embryo length (um)")
 
-        fig_id_ratio.canvas.draw()
+        #fig_id_ratio.canvas.draw()
 
-        plt.show(block=False)
-        plt.pause(0.1)
+        #plt.show(block=False)
+        #plt.pause(0.1)
 
         return conc_root_mex5_slow, conc_root_mex5_fast, conc_root_plk1_unbound, v_average
 
