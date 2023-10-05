@@ -32,11 +32,6 @@ class Plot2D():
     fig_id1 = plt.figure()
     fig_id_ratio = plt.figure()
     fig_root_based = plt.figure()
-
-    fig.set_tight_layout(True)
-    fig_id1.set_tight_layout(True)
-    fig_id_ratio.set_tight_layout(True)
-    fig_root_based.set_tight_layout(True)
     
     plt.grid(True)
     plt.subplots_adjust(hspace = 1,wspace = 0.6)
