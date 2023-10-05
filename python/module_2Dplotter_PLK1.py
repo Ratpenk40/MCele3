@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
-import matplotlib.colors as mcolors
-from matplotlib.animation import FuncAnimation
+import matplotlib.colors as mcolorson
+from matplotlib import animation
 import numpy as np
 from scipy import optimize
 import os
@@ -308,6 +308,7 @@ class Plot2D:
             container2.append([plotty])
         im_ani2 = animation.ArtistAnimation(fig2, container2, interval=50, blit=False)
         im_ani2.save(os.path.join(path, 'GradientPlk1.html'), writer='imagemagick', fps=10, dpi=50)
+        print(os.path.join(path, 'GradientPlk1.html'))
 
         #plt.show(block=False)
 
