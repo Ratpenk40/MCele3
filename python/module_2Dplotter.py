@@ -340,7 +340,7 @@ class Plot2D():
     for i in range(len(self.ims_movie1)):
         container.append([plt.imshow(self.ims_movie1[i])])
     im_ani = animation.ArtistAnimation(fig, container, interval=50, blit=False)
-    im_ani.save(os.path.join(path,'2DMex5.gif'), writer='imagemagick', fps=10, dpi=50)
+    im_ani.save(os.path.join(path,'2DMex5.html'), writer='imagemagick', fps=10, dpi=50)
 
     fig2, a2x=plt.subplots()
     container2 = []
@@ -349,10 +349,10 @@ class Plot2D():
         plotty, = a2x.plot(self.ims_movie2[i], color='blue')
         container2.append([plotty])
     im_ani2 = animation.ArtistAnimation(fig2, container2, interval=50, blit=False)
-    im_ani2.save(os.path.join(path,'Gradient.gif'), writer='imagemagick', fps=10, dpi=50)
+    im_ani2.save(os.path.join(path,'Gradient.html'), writer='imagemagick', fps=10, dpi=50)
     print("done")
     
-    plt.show(block=False)
+    #plt.show(block=False)
     
   def fit_func(self, x, a, b):
     return (a*x+b)
