@@ -5,14 +5,10 @@ import numpy as np
 from scipy import optimize
 import os
 import matplotlib.pyplot as plt
-import time
 
 import module_2Dplotter as plotter2D
 import module_2Dplotter_PLK1 as plotter2DPLK1
 from datetime import datetime
-
-from datetime import datetime
-
 
 class eloG:
     def __init__(self, filename):
@@ -288,7 +284,7 @@ def main(argv):
     particle_family_plk1.Mex5SetSettings(k_fast_slow, k_slow_fast_low, k_slow_fast_high)
 
 
-  plots = plotter2D.Plot2D(particles, limits3, limits, v_mex5_slow, v_mex5_fast)
+  plots = plotter2D.Plot2D(particles, limits3, limits, v_mex5_slow, v_mex5_fast, "logs/"+date_time)
   
   if (plk1):
     plots_plk1 = plotter2DPLK1.Plot2D(particles, limits3, limits, plk1_to_mex_multiplicator, v_plk1, v_mex5_slow, v_mex5_fast)
@@ -402,7 +398,7 @@ def main(argv):
             plots_plk1.FillDrawMovie()
 
   if (drawMovie):
-    plots.DrawMovie("logs/"+date_time)
+    plots.DrawMovie()
     if (plk1):
       plots_plk1.DrawMovie("logs/"+date_time)
   

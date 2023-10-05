@@ -12,7 +12,7 @@ x_values = [point1[0], point2[0]]
 y_values = [point1[1], point2[1]]
 class Plot2D():
   
-  def __init__(self, number, limits, limits_spheroid, v_mex5_slow, v_mex5_fast):
+  def __init__(self, number, limits, limits_spheroid, v_mex5_slow, v_mex5_fast, path):
     
     self.klast = 0.
     self.profilelast = []
@@ -22,6 +22,8 @@ class Plot2D():
     self.list_m_fit_pre = []
     self.number = number
     self.center_y = (limits_spheroid[1][1]-limits_spheroid[0][1])/2
+    self.counter = 0 # track the iteration it is on
+    self.path = path
     
     global fig, fig1, fig2, fig_id1, fig_id2, fig_id_ratio, fig_root_based, fig_movie
     fig = plt.figure()
@@ -318,8 +320,10 @@ class Plot2D():
     self.av_velocity.set_xlabel("Embryo length (um)")
     
     
-    #fig_root_based.canvas.draw()
-    
+    fig_root_based.canvas.draw()
+    self.counter += 1
+    if self.counter % 10 == 0:
+      plt.savefig(os.path.join(self.path,'Gradient.html'))
     #plt.show(block=False)
     #plt.pause(0.1)
     del self.histo3DSlow
@@ -331,7 +335,7 @@ class Plot2D():
     self.ims_movie1.append(self.data_movie_1)
     self.ims_movie2.append(self.data_movie_2)
 
-  def DrawMovie(self, path):
+  def DrawMovie(self):
 
     fig, ax=plt.subplots()
     container = []
@@ -339,7 +343,7 @@ class Plot2D():
     for i in range(len(self.ims_movie1)):
         container.append([plt.imshow(self.ims_movie1[i])])
     im_ani = animation.ArtistAnimation(fig, container, interval=50, blit=False)
-    im_ani.save(os.path.join(path,'2DMex5.html'), writer='imagemagick', fps=10, dpi=50)
+    im_ani.save(os.path.join(self.path,'2DMex5.html'), writer='imagemagick', fps=10, dpi=50)
 
     fig2, a2x=plt.subplots()
     container2 = []
@@ -348,7 +352,7 @@ class Plot2D():
         plotty, = a2x.plot(self.ims_movie2[i], color='blue')
         container2.append([plotty])
     im_ani2 = animation.ArtistAnimation(fig2, container2, interval=50, blit=False)
-    im_ani2.save(os.path.join(path,'Gradient.html'), writer='imagemagick', fps=10, dpi=50)
+    im_ani2.save(os.path.join(self.path,'Gradient.html'), writer='imagemagick', fps=10, dpi=50)
     print("done")
     
     #plt.show(block=False)
