@@ -196,7 +196,7 @@ class Plot2D():
     self.ax_id2.set_ylabel("Short axis (um)")
     fig_id1.colorbar(im2)
 
-    self.data_movie_1 = fig_id1
+    self.data_movie_1 = hist2
     
     
     density = self.limits[0][1]/self.limits[0][1]
