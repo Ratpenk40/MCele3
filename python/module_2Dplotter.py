@@ -29,9 +29,7 @@ class Plot2D():
     fig = plt.figure()
     fig_id1 = plt.figure()
     fig_id_ratio = plt.figure()
-    
     fig_root_based = plt.figure()
-
 
     fig.set_tight_layout(True)
     fig_id1.set_tight_layout(True)
@@ -44,11 +42,9 @@ class Plot2D():
     self.ims_movie1 = []
     self.ims_movie2 = []
     self.data_movie_1 = []
-    self.data_movie_2 = []
-    
+    self.data_movie_2 = [] 
 
-#   ROOT Stuff
-    
+#   ROOT Stuff   
     self.v_slow = v_mex5_slow
     self.v_fast = v_mex5_fast
     
@@ -143,7 +139,7 @@ class Plot2D():
 
     #
   def conc_calcCpp(self, X_list, Y_list, Z_list, id_list):
-    
+    autosave = 50 # to save every N iterations
     self.counter += 1
     fig_id1.clf()
     
@@ -200,9 +196,7 @@ class Plot2D():
 
     self.data_movie_1 = hist2
     
-    
     density = self.limits[0][1]/self.limits[0][1]
-
 
     for xbin in range (0, len(xbins)-1):
         id0_slice.append((hist[xbin][int(15/density)]))  #modified here to solve float issue of index?
@@ -260,7 +254,7 @@ class Plot2D():
     self.ax_id_slice_conc.legend(loc="upper right", frameon=False)    
     
     fig_id_ratio.canvas.draw()
-    if self.counter % 10 == 0:
+    if self.counter % 50 == 0:
       plt.savefig(os.path.join(self.path, f'Graphs/IdRatio-Plot_t-{self.counter}.png'))
 
         #root stuff
@@ -324,7 +318,7 @@ class Plot2D():
     
     fig_root_based.canvas.draw()
     
-    if self.counter % 10 == 0:
+    if self.counter % autosave == 0: 
       plt.savefig(os.path.join(self.path, f'Graphs/Root-Based-Plot_t-{self.counter}.png'))
     #plt.show(block=False)
     #plt.pause(0.1)
