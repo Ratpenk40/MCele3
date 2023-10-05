@@ -249,7 +249,6 @@ class Plot2D():
     self.ax_id_slice_conc.set_xlabel("Embryo length (um)")
     self.ax_id_slice_conc.legend(loc="upper right", frameon=False) 
 
-    fig_id_ratio.subplots_adjust(wspace=1, hspace=1)   # making it less crowded
     fig_id_ratio.canvas.draw()
 
     fig_pixels = np.array(fig_id_ratio.canvas.renderer.buffer_rgba())
