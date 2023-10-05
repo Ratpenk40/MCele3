@@ -75,7 +75,6 @@ class Plot2D:
         self.ax1.set_title("2D distribution PLK-1")
         self.ax1.set_xlabel("Long axis (um)")
         self.ax1.set_ylabel("Short axis (um)")
-        self.ax1.set_ylim(bottom=0, top=30)
         fig3.colorbar(im)
         oneD = []
 
@@ -188,6 +187,8 @@ class Plot2D:
         self.ax_id3.set_title("PLK-1")
         self.ax_id3.set_xlabel("Long axis (um)")
         self.ax_id3.set_ylabel("Short axis (um)")
+        self.ax_id3.set_ylim(bottom=0, top=30)
+
         fig_id1.colorbar(im3)
 
         self.data_movie_1 = hist3.T

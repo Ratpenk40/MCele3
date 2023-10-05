@@ -85,7 +85,7 @@ class Plot2D():
     fig.clf()
 
     self.ax1 = fig.add_subplot(2,1,1)
-    hist, xbins, ybins, im = self.ax1.hist2d(self.x, self.y, bins=50, range=[[0,50], [0,30]]) 
+    hist, xbins, ybins, im = self.ax1.hist2d(self.x, self.y, bins=50, range=[[0,50], [0,50]]) 
     # ^^^ setting bins to 50 which is the length of the embryo in um, to override the bins issues with self.limits[0][1]
     self.ax1.set_title("2D distribution MEX-5") 
     self.ax1.set_xlabel("Long axis (um)")
@@ -194,6 +194,7 @@ class Plot2D():
     self.ax_id2.set_title("2D concentration MEX-5")
     self.ax_id2.set_xlabel("Long axis (um)")
     self.ax_id2.set_ylabel("Short axis (um)")
+    self.ax_id2.set_ylim(bottom=0, top=30)
     fig_id1.colorbar(im2)
 
 
