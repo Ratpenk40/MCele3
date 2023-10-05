@@ -323,7 +323,7 @@ class Plot2D():
     fig_root_based.canvas.draw()
     self.counter += 1
     if self.counter % 10 == 0:
-      plt.savefig(os.path.join(self.path,f'Panel_t-{self.counter}.png'))
+      plt.savefig(os.path.join(self.path, f'Graphs/Panel_t-{self.counter}.png'))
     #plt.show(block=False)
     #plt.pause(0.1)
     del self.histo3DSlow
