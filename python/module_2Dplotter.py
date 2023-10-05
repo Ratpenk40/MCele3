@@ -211,10 +211,6 @@ class Plot2D():
 
     ratio = np.divide(id0_slice, id1_slice)
     ratio2 = np.divide(id0, id1)
-    
-    #recreating plot for the savefig
-    fig_id_ratio = plt.figure()
-    fig_id_ratio.set_tight_layout(True)    
 
     self.ax_id_ratio = fig_id_ratio.add_subplot(3,2,1)
     self.ax_id_ratio.plot(xbins_line, ratio)
@@ -259,8 +255,9 @@ class Plot2D():
     self.ax_id_slice_conc.legend(loc="upper right", frameon=False)    
     
     fig_id_ratio.canvas.draw()
+    fig_pixels = np.array(fig_id_ratio.canvas.renderer.buffer_rgba())
     if self.counter % 50 == 0:
-      plt.savefig(os.path.join(self.path, f'Graphs/IdRatio-Plot_t-{self.counter}.png'))
+      plt.imsave(os.path.join(self.path, f'Graphs/IdRatio-Plot_t-{self.counter}.png'), fig_pixels)
 
         #root stuff
     self.histo3DSlow = ROOT.TH3F("plot3D-Slow", "plot3D-Slow", 50, 0, 50, 30 , 0, 30, 30, 0, 30 )
@@ -290,10 +287,6 @@ class Plot2D():
     fig_root_based.clf()
     
     ratio3 = np.divide(slow_content, fast_content)
-
-    fig_root_based = plt.figure()
-    fig_root_based.set_tight_layout(True)
-
 
     self.ax_id_ratio3 = fig_root_based.add_subplot(2,2,1)
     self.ax_id_ratio3.plot(xbins_line, ratio3)
