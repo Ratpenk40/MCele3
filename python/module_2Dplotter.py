@@ -247,9 +247,11 @@ class Plot2D():
     self.ax_id_slice_conc.set_title("MEX-5 concentrat., integrat. on Z")
     self.ax_id_slice_conc.set_ylabel("Conc. MEX-5s + MEX-5f")
     self.ax_id_slice_conc.set_xlabel("Embryo length (um)")
-    self.ax_id_slice_conc.legend(loc="upper right", frameon=False)    
-    
+    self.ax_id_slice_conc.legend(loc="upper right", frameon=False) 
+
+    fig_id_ratio.subplots_adjust(wspace=5, hspace=5)   # making it less crowded
     fig_id_ratio.canvas.draw()
+
     fig_pixels = np.array(fig_id_ratio.canvas.renderer.buffer_rgba())
     if self.counter % 50 == 0:
       plt.imsave(os.path.join(self.path, f'Graphs/IdRatio-Plot_t-{self.counter}.png'), fig_pixels)
