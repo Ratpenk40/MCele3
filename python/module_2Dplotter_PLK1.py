@@ -191,7 +191,7 @@ class Plot2D:
 
         fig_id1.colorbar(im3)
         
-        self.data_movie_1 = hist3.T
+        self.data_movie_1 = fig_id1
 
         density = self.limits[0][1] / self.limits[0][1]
 
