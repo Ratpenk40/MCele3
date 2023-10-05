@@ -20,28 +20,35 @@ In particular, it focuses on PLK-1 and MEX-5 proteins.
 * CERN ROOT
 * Boost C++ libraries - including boost.python module
 
-## System/Package versions tested
+## System/Package versions tested on HPC UNIGE Cluster
 ***
 
 * OS: Ubuntu18 - Fedora33
+* Tool-chain: foss/2019b
 * cmake: 3.17.4
 * make: 4.2.1 
-* gcc: 10.3.1 20210422
-* Python: 2.7.18
-* Matplotlib: 2.2.5
+* gcc: 8.3.0
+* Python: 3.7.4
+* Matplotlib: 3.1.1
 * numpy: 1.16.6
 * scipy: 1.2.3
-* CERN ROOT: 6.22/07 
-* Boost C++ libraries - including boost.python module: 1.69
+* CERN ROOT: 6.20.04 
+* Boost C++ libraries - including boost.python module: 1.71
 ***
-The software may run with other versions. Python3 is NOT supported.
+The software may run with other versions. Python2 is NOT supported.
 
 
 ## Installation
 ***
 To install, please follow the instructions below:
+- first loading the correct modules to build with
 ```
-$ git clone https://github.com/sofiabarbieri/MCEle_ProteinGradient.git
+$ module load foss/2019b ROOT Boost/1.71.0 Boost.Python/1.71.0 matplotlib/3.1.1-Python-3.7.4 CMake
+
+```
+- Cloning and making the files
+```
+$ git clone https://github.com/Ratpenk40/MCele3.git
 
 $ mkdir install
 $ mkdir build
@@ -55,7 +62,7 @@ Installation takes 1-2 minutes.
 
 ## Run instruction
 ***
-To run the code
+To run the code, ! always inside a sbatch file, to avoid running on the login node
 ```
 $ python main.py 
 ```
@@ -73,8 +80,8 @@ Example:
 ```
 python main.py -p 1000000 --bound --plk1 --threeD --slice --settings settingsTemplate 
 ```
-In prodution several runs can be launched in parallel (predefined 10 runs), by executing the runner.sh bash script.
-As a title of example a run as the example before (10^6 paricles for both MEX-5 and plk1) has a memory footprint of about 800 MB.
+As a title of example a run as the example before (10^6 paricles for both MEX-5 and plk1) has a memory footprint of about 1000 MB.
+A sbatch shell script, called 'one-node.sh' for running on the cluster is provided, see HPC doc for instruction on how to modify: https://doc.eresearch.unige.ch/hpc/slurm
 
 ## Output
 ***
@@ -117,5 +124,4 @@ this provides the output files (e.g.) v_plk1_MEAN.txt and (e.g.) v_plk1_STDDEV.t
 python plotter_3D_t_X.py -i v_plk1_MEAN.txt
 ```
 this provides the distribution as a function of time and space of the parameter in the input file, along with the 2D distributions.
-
 
