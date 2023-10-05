@@ -144,7 +144,7 @@ class Plot2D():
     #
   def conc_calcCpp(self, X_list, Y_list, Z_list, id_list):
     
-    
+    self.counter += 1
     fig_id1.clf()
     
     fig_id_ratio.clf()
@@ -260,6 +260,8 @@ class Plot2D():
     self.ax_id_slice_conc.legend(loc="upper right", frameon=False)    
     
     fig_id_ratio.canvas.draw()
+    if self.counter % 10 == 0:
+      plt.savefig(os.path.join(self.path, f'Graphs/IdRatio-Plot_t-{self.counter}.png'))
 
         #root stuff
     self.histo3DSlow = ROOT.TH3F("plot3D-Slow", "plot3D-Slow", 50, 0, 50, 30 , 0, 30, 30, 0, 30 )
@@ -321,9 +323,9 @@ class Plot2D():
     
     
     fig_root_based.canvas.draw()
-    self.counter += 1
+    
     if self.counter % 10 == 0:
-      plt.savefig(os.path.join(self.path, f'Graphs/Panel_t-{self.counter}.png'))
+      plt.savefig(os.path.join(self.path, f'Graphs/Root-Based-Plot_t-{self.counter}.png'))
     #plt.show(block=False)
     #plt.pause(0.1)
     del self.histo3DSlow
