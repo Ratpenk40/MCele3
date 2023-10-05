@@ -70,7 +70,7 @@ class Plot2D:
         
         self.ax1 = fig3.add_subplot(2, 1, 1)
 
-        hist, xbins, ybins, im = self.ax1.hist2d(self.x, self.y, bins=50, range=[[0,50], [0,50]])
+        hist, xbins, ybins, im = self.ax1.hist2d(self.x, self.y, bins=50, range=[[0,50], [0,30]])
         # ^^^ setting bins to 50 which is the length of the embryo in um, to override the bins issues with self.limits[0][1]
         self.ax1.set_title("2D distribution PLK-1")
         self.ax1.set_xlabel("Long axis (um)")
@@ -307,6 +307,7 @@ class Plot2D:
             plotty, = a2x.plot(self.ims_movie2[i], color='blue')
             container2.append([plotty])
         im_ani2 = animation.ArtistAnimation(fig2, container2, interval=50, blit=False)
+        #mywriter = animation.FFMpegWriter(fps=10) to try
         im_ani2.save(os.path.join(path, 'GradientPlk1.html'), writer='imagemagick', fps=10, dpi=50)
         print(os.path.join(path, 'GradientPlk1.html'))
 
