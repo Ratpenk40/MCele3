@@ -192,6 +192,7 @@ class Plot2D():
     self.ax_id2.set_ylim(bottom=0, top=30)
     fig_id1.colorbar(im2)
 
+    fig_id1.canvas.draw()
     # converting the canvas to a pixel matrix
     if self.counter % autosave == 0: 
       plt.imsave(os.path.join(self.path, f'Graphs/MEX-5-Embryo_t-{self.counter}.png'), np.array(fig_id1.canvas.renderer.buffer_rgba())) 

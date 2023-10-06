@@ -197,7 +197,7 @@ class Plot2D:
         fig_id1.colorbar(im3)
         
         self.data_movie_1 = hist3
-
+        fig_id1.canvas.draw()
         if self.counter % autosave == 0: 
             plt.imsave(os.path.join(self.path, f'Graphs/PLK-1-Embryo_t-{self.counter}.png'), np.array(fig_id1.canvas.renderer.buffer_rgba()))
 
