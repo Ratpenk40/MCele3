@@ -73,7 +73,7 @@ class Plot2D:
         
         self.ax1 = fig3.add_subplot(2, 1, 1)
 
-        hist, xbins, ybins, im = self.ax1.hist2d(self.x, self.y, bins=50, range=[[0,50], [0,50]])
+        hist, xbins, ybins, im = self.ax1.hist2d(self.x, self.y, bins=50, range=self.limits)
         # ^^^ setting bins to 50 which is the length of the embryo in um, to override the bins issues with self.limits[0][1]
         self.ax1.set_title("2D distribution PLK-1")
         self.ax1.set_xlabel("Long axis (um)")
@@ -199,7 +199,7 @@ class Plot2D:
         self.data_movie_1 = hist3
 
         if self.counter % autosave == 0: 
-            plt.imsave(os.path.join(self.path, f'Graphs/PLK-1-Embryo_t-{self.counter}.png'), np.array(fig_id1.renderer.buffer_rgba()))
+            plt.imsave(os.path.join(self.path, f'Graphs/PLK-1-Embryo_t-{self.counter}.png'), np.array(fig_id1.canvas.renderer.buffer_rgba()))
 
         density = self.limits[0][1] / self.limits[0][1]
 
