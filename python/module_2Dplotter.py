@@ -182,6 +182,7 @@ class Plot2D():
     self.ax_id1.set_title("2D concentration MEX-5f")
     self.ax_id1.set_xlabel("Long axis (um)")
     self.ax_id1.set_ylabel("Short axis (um)")
+    self.ax_id2.set_ylim(bottom=0, top=30)
     fig_id1.colorbar(im1)
 
     self.ax_id2 = fig_id1.add_subplot(3,1,3)

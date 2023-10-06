@@ -193,7 +193,6 @@ class Plot2D:
         self.ax_id3.set_title("PLK-1")
         self.ax_id3.set_xlabel("Long axis (um)")
         self.ax_id3.set_ylabel("Short axis (um)")
-        self.ax_id3.set_ylim(bottom=0, top=30)
         fig_id1.colorbar(im3)
         
         self.data_movie_1 = hist3
