@@ -34,6 +34,7 @@ class Plot2D:
         self.data_movie_1 = []
         self.data_movie_2 = []
 
+        self.counter = 0
         self.path = path
 
     def Update(self, particles, sliceD, slice_depth):
