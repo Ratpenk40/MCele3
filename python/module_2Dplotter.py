@@ -191,8 +191,12 @@ class Plot2D():
     self.ax_id2.set_ylabel("Short axis (um)")
     fig_id1.colorbar(im2)
 
+    # converting the canvas to a pixel matrix
+    if self.counter % autosave == 0: 
+      plt.imsave(os.path.join(self.path, f'Graphs/MEX-5-Embryo_t-{self.counter}.png'), np.array(fig_id1.renderer.buffer_rgba())) 
+
     self.data_movie_1 = hist2
-    
+
     density = self.limits[0][1]/self.limits[0][1]
 
     for xbin in range (0, len(xbins)-1):
@@ -250,10 +254,9 @@ class Plot2D():
     self.ax_id_slice_conc.legend(loc="upper right", frameon=False) 
 
     fig_id_ratio.canvas.draw()
-
-    fig_pixels = np.array(fig_id_ratio.canvas.renderer.buffer_rgba())
-    if self.counter % 50 == 0:
-      plt.imsave(os.path.join(self.path, f'Graphs/IdRatio-Plot_t-{self.counter}.png'), fig_pixels)
+    
+    if self.counter % autosave == 0: 
+      plt.imsave(os.path.join(self.path, f'Graphs/MEX-5-PlotA_t-{self.counter}.png'), np.array(fig_id_ratio.canvas.renderer.buffer_rgba()))  
 
         #root stuff
     self.histo3DSlow = ROOT.TH3F("plot3D-Slow", "plot3D-Slow", 50, 0, 50, 30 , 0, 30, 30, 0, 30 )
@@ -316,7 +319,7 @@ class Plot2D():
     fig_root_based.canvas.draw()
     
     if self.counter % autosave == 0: 
-      plt.savefig(os.path.join(self.path, f'Graphs/Root-Based-Plot_t-{self.counter}.png'))
+      plt.imsave(os.path.join(self.path, f'Graphs/MEX-5-PlotB_t-{self.counter}.png'), np.array(fig_root_based.canvas.renderer.buffer_rgba()))
     #plt.show(block=False)
     #plt.pause(0.1)
     del self.histo3DSlow

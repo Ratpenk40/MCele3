@@ -287,7 +287,7 @@ def main(argv):
   plots = plotter2D.Plot2D(particles, limits3, limits, v_mex5_slow, v_mex5_fast, "logs/"+date_time)
   
   if (plk1):
-    plots_plk1 = plotter2DPLK1.Plot2D(particles, limits3, limits, plk1_to_mex_multiplicator, v_plk1, v_mex5_slow, v_mex5_fast)
+    plots_plk1 = plotter2DPLK1.Plot2D(particles, limits3, limits, plk1_to_mex_multiplicator, v_plk1, v_mex5_slow, v_mex5_fast, "logs/"+date_time)
 
   
   #Get info from cpp libraries
@@ -400,7 +400,7 @@ def main(argv):
   if (drawMovie):
     plots.DrawMovie()
     if (plk1):
-      plots_plk1.DrawMovie("logs/"+date_time)
+      plots_plk1.DrawMovie()
   
   end_time = datetime.now()
   end_date_time = end_time.strftime("%d_%m_%Y_%H_%M_%S")

@@ -7,7 +7,7 @@ import os
 import ROOT
 
 class Plot2D:
-    def __init__(self, number, limits, limits_spheroid, plk1_to_mex_multiplicator, v_plk1, v_mex5_slow, v_mex5_fast):
+    def __init__(self, number, limits, limits_spheroid, plk1_to_mex_multiplicator, v_plk1, v_mex5_slow, v_mex5_fast, path):
         self.klast = 0.0
         self.profilelast = []
         self.x = [0] * number
@@ -33,6 +33,8 @@ class Plot2D:
         self.ims_movie2 = []
         self.data_movie_1 = []
         self.data_movie_2 = []
+
+        self.path = path
 
     def Update(self, particles, sliceD, slice_depth):
         self.x.clear()
@@ -126,6 +128,9 @@ class Plot2D:
 
 
     def conc_calcCpp(self, X_list, Y_list, Z_list, id_list):
+        autosave = 50 # setting frequency of image saving
+        self.counter += 1
+
         fig_id1.clf()
         fig_id_ratio.clf()
 
@@ -192,6 +197,9 @@ class Plot2D:
         fig_id1.colorbar(im3)
         
         self.data_movie_1 = hist3
+
+        if self.counter % autosave == 0: 
+            plt.imsave(os.path.join(self.path, f'Graphs/PLK-1-Embryo_t-{self.counter}.png'), np.array(fig_id1.renderer.buffer_rgba()))
 
         density = self.limits[0][1] / self.limits[0][1]
 
@@ -278,7 +286,10 @@ class Plot2D:
         self.av_velocity.set_ylabel("Mean velocity of PLK-1 species")
         self.av_velocity.set_xlabel("Embryo length (um)")
 
-        #fig_id_ratio.canvas.draw()
+        fig_id_ratio.canvas.draw()
+
+        if self.counter % autosave == 0: 
+            plt.imsave(os.path.join(self.path, f'Graphs/PLK-1-PlotA_t-{self.counter}.png'), np.array(fig_id_ratio.canvas.renderer.buffer_rgba()))  
 
         #plt.show(block=False)
         #plt.pause(0.1)
@@ -293,14 +304,14 @@ class Plot2D:
         self.ims_movie1.append(self.data_movie_1)
         self.ims_movie2.append(self.data_movie_2)
 
-    def DrawMovie(self, path):
+    def DrawMovie(self):
         fig, ax = plt.subplots()
         container = []
 
         for i in range(len(self.ims_movie1)):
             container.append([plt.imshow(self.ims_movie1[i])])
         im_ani = animation.ArtistAnimation(fig, container, interval=50, blit=False)
-        im_ani.save(os.path.join(path, '2DPlk1.html'), writer='imagemagick', fps=10, dpi=50)
+        im_ani.save(os.path.join(self.path, '2DPlk1.html'), writer='imagemagick', fps=10, dpi=50)
 
         fig2, a2x = plt.subplots()
         container2 = []
@@ -310,8 +321,8 @@ class Plot2D:
             container2.append([plotty])
         im_ani2 = animation.ArtistAnimation(fig2, container2, interval=50, blit=False)
         #mywriter = animation.FFMpegWriter(fps=10) to try
-        im_ani2.save(os.path.join(path, 'GradientPlk1.html'), writer='imagemagick', fps=10, dpi=50)
-        print(os.path.join(path, 'GradientPlk1.html'))
+        im_ani2.save(os.path.join(self.path, 'GradientPlk1.html'), writer='imagemagick', fps=10, dpi=50)
+        print(os.path.join(self.path, 'GradientPlk1.html'))
 
         #plt.show(block=False)
 
