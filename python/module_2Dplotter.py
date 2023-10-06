@@ -185,10 +185,11 @@ class Plot2D():
     fig_id1.colorbar(im1)
 
     self.ax_id2 = fig_id1.add_subplot(3,1,3)
-    hist2, xbins2, ybins2, im2 = self.ax_id2.hist2d(x3, y3, bins=self.limits[0][1], range=[[0,50], [0,30]])
+    hist2, xbins2, ybins2, im2 = self.ax_id2.hist2d(x3, y3, bins=self.limits[0][1], range=self.limits)
     self.ax_id2.set_title("2D concentration MEX-5")
     self.ax_id2.set_xlabel("Long axis (um)")
     self.ax_id2.set_ylabel("Short axis (um)")
+    self.ax_id2.set_ylim(bottom=0, top=30)
     fig_id1.colorbar(im2)
 
     # converting the canvas to a pixel matrix
