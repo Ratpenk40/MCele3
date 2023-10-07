@@ -80,8 +80,7 @@ class Plot2D():
     fig.clf()
 
     self.ax1 = fig.add_subplot(2,1,1)
-    hist, xbins, ybins, im = self.ax1.hist2d(self.x, self.y, bins=50, range=self.limits) 
-    # ^^^ setting bins to 50 which is the length of the embryo in um, to override the bins issues with self.limits[0][1]
+    hist, xbins, ybins, im = self.ax1.hist2d(self.x, self.y, bins=self.limits[0][1], range=self.limits) 
     self.ax1.set_title("2D distribution MEX-5") 
     self.ax1.set_xlabel("Long axis (um)")
     self.ax1.set_ylabel("Short axis (um)")
@@ -134,9 +133,8 @@ class Plot2D():
     #plt.show(block=False)
     #plt.pause(0.1)
 
-    #
   def conc_calcCpp(self, X_list, Y_list, Z_list, id_list):
-    autosave = 50 # to save every N iterations
+    autosave = 10 # to save every N iterations, now set to 10 for debuggin purposes, I advise to 30 for QC of production runs
     self.counter += 1
     
     id0_slice = []
@@ -167,24 +165,28 @@ class Plot2D():
 
 
     fig_id1.clf()
-  # Embryo plot with 3 subplots
-    ax_id0 = fig_id1.add_subplot(3,1,1)
-    hist, xbins, ybins, im = ax_id0.hist2d(x1, y1, bins=self.limits[0][1], range=self.limits)
-    ax_id0.set(title="2D concentration MEX-5s", xlabel="Long axis (um)", 
-                    ylabel="Short axis (um)", ylim=(0,30))
-    fig_id1.colorbar(im)
-
-    ax_id1 = fig_id1.add_subplot(3,1,2)
-    hist1, xbins1, ybins1, im1 = ax_id1.hist2d(x2, y2, bins=self.limits[0][1], range=self.limits)
-    ax_id1.set(title="2D concentration MEX-5f", xlabel="Long axis (um)", 
-                    ylabel="Short axis (um)", ylim=(0,30))
-    fig_id1.colorbar(im1)
-
+    # Embryo plot with 3 subplots
     ax_id2 = fig_id1.add_subplot(3,1,3)
     hist2, xbins2, ybins2, im2 = ax_id2.hist2d(x3, y3, bins=self.limits[0][1], range=self.limits)
     ax_id2.set(title="2D concentration MEX-5", xlabel="Long axis (um)", 
                     ylabel="Short axis (um)", ylim=(0,30))
     fig_id1.colorbar(im2)
+
+    #normalisation of the plot colors intensities with vmin and vmax on the total MEX-5 
+    v_min=np.min(hist2)
+    v_max=np.max(hist2)
+
+    ax_id0 = fig_id1.add_subplot(3,1,1)
+    hist, xbins, ybins, im = ax_id0.hist2d(x1, y1, bins=self.limits[0][1], range=self.limits, vmin=v_min, vmax=v_max)
+    ax_id0.set(title="2D concentration MEX-5s", xlabel="Long axis (um)", 
+                    ylabel="Short axis (um)", ylim=(0,30))
+    fig_id1.colorbar(im)
+
+    ax_id1 = fig_id1.add_subplot(3,1,2)
+    hist1, xbins1, ybins1, im1 = ax_id1.hist2d(x2, y2, bins=self.limits[0][1], range=self.limits, vmin=v_min, vmax=v_max)
+    ax_id1.set(title="2D concentration MEX-5f", xlabel="Long axis (um)", 
+                    ylabel="Short axis (um)", ylim=(0,30))
+    fig_id1.colorbar(im1) 
 
     fig_id1.tight_layout()
     fig_id1.canvas.draw()
@@ -220,18 +222,14 @@ class Plot2D():
     ax_id_conc = fig_id_ratio.add_subplot(3,2,3)
     ax_id_conc.plot(xbins_line, id0, 'r', label="MEX-5s")
     ax_id_conc.plot(xbins_line, id1, 'b', label="MEX-5f")
-    ax_id_conc.set_title("# MEX-5 p.les, integrat. on Y and Z")
-    ax_id_conc.set_ylabel("# p.les MEX-5s , MEX-5f")
-    ax_id_conc.set_xlabel("Embryo length (um)")
+    ax_id_conc.set(title="# MEX-5 p.les, integrat. on Y and Z", ylabel="# p.les MEX-5s , MEX-5f", xlabel="Embryo length (um)")
     ax_id_conc.legend(loc="upper right", frameon=False)
 
-    self.ax_id_slice = fig_id_ratio.add_subplot(3,2,4)
-    self.ax_id_slice.plot(xbins_line, id0_slice, 'r', label="MEX-5s")
-    self.ax_id_slice.plot(xbins_line, id1_slice, 'b', label="MEX-5f")
-    self.ax_id_slice.set_title("# MEX-5 p.les, integrat. on Z")
-    self.ax_id_slice.set_ylabel("# p.les MEX-5s , MEX-5f")
-    self.ax_id_slice.set_xlabel("Embryo length (um)")
-    self.ax_id_slice.legend(loc="upper right", frameon=False)
+    ax_id_slice = fig_id_ratio.add_subplot(3,2,4)
+    ax_id_slice.plot(xbins_line, id0_slice, 'r', label="MEX-5s")
+    ax_id_slice.plot(xbins_line, id1_slice, 'b', label="MEX-5f")
+    ax_id_slice.set(title="# MEX-5 p.les, integrat. on Z", ylabel="# p.les MEX-5s , MEX-5f", xlabel="Embryo length (um)")
+    ax_id_slice.legend(loc="upper right", frameon=False)
     
     mex5_slow = np.array(id0_slice)/self.number
     mex5_fast = np.array(id1_slice)/self.number
@@ -241,9 +239,7 @@ class Plot2D():
     ax_id_slice_conc.plot(xbins_line, mex5_tot, 'g', label="Tot. concentr.")
     ax_id_slice_conc.plot(xbins_line, mex5_slow, 'r', label="MEX-5s")
     ax_id_slice_conc.plot(xbins_line, mex5_fast, 'b', label="MEX-55f")
-    ax_id_slice_conc.set_title("MEX-5 concentrat., integrat. on Z")
-    ax_id_slice_conc.set_ylabel("Conc. MEX-5s + MEX-5f")
-    ax_id_slice_conc.set_xlabel("Embryo length (um)")
+    ax_id_slice_conc.set(title="MEX-5 concentrat., integrat. on Z", ylabel="Conc. MEX-5s + MEX-5f", xlabel="Embryo length (um)")
     ax_id_slice_conc.legend(loc="upper right", frameon=False)
 
     fig_id_ratio.tight_layout()
@@ -254,8 +250,8 @@ class Plot2D():
 
 
         #root stuff
-    self.histo3DSlow = ROOT.TH3F("plot3D-Slow", "plot3D-Slow", 50, 0, 50, 30 , 0, 30, 30, 0, 30 )
-    self.histo3DFast = ROOT.TH3F("plot3D-Fast", "plot3D-Fast", 50, 0, 50, 30 , 0, 30, 30, 0, 30 )
+    histo3DSlow = ROOT.TH3F("plot3D-Slow", "plot3D-Slow", 50, 0, 50, 30 , 0, 30, 30, 0, 30 )
+    histo3DFast = ROOT.TH3F("plot3D-Fast", "plot3D-Fast", 50, 0, 50, 30 , 0, 30, 30, 0, 30 )
 
 
     x_3d = np.array(X_list)
@@ -263,16 +259,16 @@ class Plot2D():
     z_3d = np.array(Z_list)
     for xbin in range (0, len(x_3d)):
       if (id_list[xbin]==0):
-        self.histo3DSlow.Fill(x_3d[xbin], y_3d[xbin], z_3d[xbin] )
+        histo3DSlow.Fill(x_3d[xbin], y_3d[xbin], z_3d[xbin] )
       else:
-        self.histo3DFast.Fill(x_3d[xbin], y_3d[xbin], z_3d[xbin] )
+        histo3DFast.Fill(x_3d[xbin], y_3d[xbin], z_3d[xbin] )
 
 
     slow_content = []
     fast_content = []
     for x_bin in range (1, 51):
-       slow_content.append(self.histo3DSlow.GetBinContent(x_bin,15,15))
-       fast_content.append(self.histo3DFast.GetBinContent(x_bin,15,15))
+       slow_content.append(histo3DSlow.GetBinContent(x_bin,15,15))
+       fast_content.append(histo3DFast.GetBinContent(x_bin,15,15))
 
     max_arr = np.array(slow_content)+np.array(fast_content)
     
@@ -282,11 +278,11 @@ class Plot2D():
     
     ratio3 = np.divide(slow_content, fast_content)
 
-    self.ax_id_ratio3 = fig_root_based.add_subplot(2,2,1)
-    self.ax_id_ratio3.plot(xbins_line, ratio3)
-    self.ax_id_ratio3.set_title("Ratio, Central Voxel")
-    self.ax_id_ratio3.set_ylabel("Ratio MEX-5s/MEX-5f")
-    self.ax_id_ratio3.set_xlabel("Embryo length (um)")
+    ax_id_ratio3 = fig_root_based.add_subplot(2,2,1)
+    ax_id_ratio3.plot(xbins_line, ratio3)
+    ax_id_ratio3.set(title="Ratio, Central Voxel", ylabel="Ratio MEX-5s/MEX-5f", xlabel="Embryo length (um)")
+    ax_id_ratio3.set_ylabel("Ratio MEX-5s/MEX-5f")
+    ax_id_ratio3.set_xlabel("Embryo length (um)")
     
     
     v_average = (np.array(slow_content)*self.v_slow+np.array(fast_content)*self.v_fast)/(np.array(slow_content)+np.array(fast_content))
@@ -294,31 +290,27 @@ class Plot2D():
     conc_root_mex5_slow = np.array(slow_content)/self.number
     conc_root_mex5_fast = np.array(fast_content)/self.number
     
-    self.ax_id_conc_root = fig_root_based.add_subplot(2,2,2)
-    self.ax_id_conc_root.plot(xbins_line, conc_root_mex5_slow, 'r', label="MEX-5 slow")
-    self.ax_id_conc_root.plot(xbins_line, conc_root_mex5_fast, 'b', label="MEX-5 fast")
-    self.ax_id_conc_root.set_title("MEX-5 concentr.,  Central voxel")
-    self.ax_id_conc_root.set_ylabel("Concentr. MEX-5s , MEX-5f")
-    self.ax_id_conc_root.set_xlabel("Embryo length (um)")
-    self.ax_id_conc_root.legend(loc="upper right", frameon=False)
-    
-    
-    
-    self.av_velocity = fig_root_based.add_subplot(2,2,3)
-    self.av_velocity.plot(xbins_line, v_average)
-    self.av_velocity.set_title("Mean MEX-5 velocity, Central Voxel")
-    self.av_velocity.set_ylabel("Mean velocity MEX-5s, MEX-5f")
-    self.av_velocity.set_xlabel("Embryo length (um)")
-    
-    
+    # For ax_id_conc_root
+    ax_id_conc_root = fig_root_based.add_subplot(2, 2, 2)
+    ax_id_conc_root.plot(xbins_line, conc_root_mex5_slow, 'r', label="MEX-5 slow")
+    ax_id_conc_root.plot(xbins_line, conc_root_mex5_fast, 'b', label="MEX-5 fast")
+    ax_id_conc_root.set(title="MEX-5 concentr.,  Central voxel", ylabel="Concentr. MEX-5s , MEX-5f", xlabel="Embryo length (um)")
+    ax_id_conc_root.legend(loc="upper right", frameon=False)
+
+    # For av_velocity
+    av_velocity = fig_root_based.add_subplot(2, 2, 3)
+    av_velocity.plot(xbins_line, v_average)
+    av_velocity.set(title="Mean MEX-5 velocity, Central Voxel", ylabel="Mean velocity MEX-5s, MEX-5f", xlabel="Embryo length (um)")
+
+    fig_root_based.tight_layout()
     fig_root_based.canvas.draw()
     
     if self.counter % autosave == 0: 
       plt.imsave(os.path.join(self.path, f'Graphs/MEX-5-PlotB_t-{self.counter}.png'), np.array(fig_root_based.canvas.renderer.buffer_rgba()))
     #plt.show(block=False)
     #plt.pause(0.1)
-    del self.histo3DSlow
-    del self.histo3DFast
+    del histo3DSlow
+    del histo3DFast
 
     return ratio2.tolist(), conc_root_mex5_slow.tolist(), conc_root_mex5_fast.tolist(), v_average.tolist()
   

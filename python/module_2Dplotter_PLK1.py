@@ -23,8 +23,8 @@ class Plot2D:
 
         global fig3, fig4, fig5, fig_id1, fig_id_ratio
         fig3 = plt.figure()
-        fig_id1 = plt.figure()
-        fig_id_ratio = plt.figure()
+        fig_id1 = plt.figure(figsize=[6, 10])
+        fig_id_ratio = plt.figure(figsize=[9.6, 7.2])
 
         plt.grid(True)
         plt.subplots_adjust(hspace=1, wspace=0.6)
@@ -73,14 +73,13 @@ class Plot2D:
         
         self.ax1 = fig3.add_subplot(2, 1, 1)
 
-        hist, xbins, ybins, im = self.ax1.hist2d(self.x, self.y, bins=50, range=self.limits)
-        # ^^^ setting bins to 50 which is the length of the embryo in um, to override the bins issues with self.limits[0][1]
+        hist, xbins, ybins, im = self.ax1.hist2d(self.x, self.y, bins=self.limits[0][1], range=self.limits)
         self.ax1.set_title("2D distribution PLK-1")
         self.ax1.set_xlabel("Long axis (um)")
         self.ax1.set_ylabel("Short axis (um)")
         fig3.colorbar(im)
-        oneD = []
 
+        oneD = []
         #density = self.limits[0][1] / self.limits[0][1]
 
         # defining line
@@ -129,7 +128,7 @@ class Plot2D:
 
 
     def conc_calcCpp(self, X_list, Y_list, Z_list, id_list):
-        autosave = 50 # setting frequency of image saving
+        autosave = 10 # setting frequency of image saving
         self.counter += 1
 
         fig_id1.clf()
@@ -167,39 +166,38 @@ class Plot2D:
             x4.append(X_list[index])
             y4.append(Y_list[index])
 
-        self.ax_id0 = fig_id1.add_subplot(2, 2, 1)
-        hist, xbins, ybins, im = self.ax_id0.hist2d(x1, y1, bins=self.limits[0][1], range=self.limits)
-        self.ax_id0.set_title("Unbound PLK-1")
-        self.ax_id0.set_xlabel("Long axis (um)")
-        self.ax_id0.set_ylabel("Short axis (um)")
+
+        
+        ax_id3 = fig_id1.add_subplot(4, 1, 4)
+        hist3, xbins3, ybins3, im3 = ax_id3.hist2d(x4, y4, bins=self.limits[0][1], range=self.limits)
+        ax_id3.set(title="PLK-1", xlabel="Long axis (um)", ylabel="Short axis (um)", ylim=(0,30))
+        fig_id1.colorbar(im3)
+
+        #add normalisation with vmin and vmax from the total PLK-1 min and max value
+        v_min=np.min(hist3)
+        v_max=np.max(hist3)
+
+        ax_id0 = fig_id1.add_subplot(4, 1, 1)
+        hist, xbins, ybins, im = ax_id0.hist2d(x1, y1, bins=self.limits[0][1], range=self.limits, vmin=v_min, vmax=v_max)
+        ax_id0.set(title="Unbound PLK-1", xlabel="Long axis (um)", ylabel="Short axis (um)", ylim=(0,30))
         fig_id1.colorbar(im)
 
-        self.ax_id1 = fig_id1.add_subplot(2, 2, 2)
-        hist1, xbins1, ybins1, im1 = self.ax_id1.hist2d(x2, y2, bins=self.limits[0][1], range=self.limits)
-        self.ax_id1.set_title("PLK-1 to MEX-5s")
-        self.ax_id1.set_xlabel("Long axis (um)")
-        self.ax_id1.set_ylabel("Short axis (um)")
+        ax_id1 = fig_id1.add_subplot(4, 1, 2)
+        hist1, xbins1, ybins1, im1 =ax_id1.hist2d(x2, y2, bins=self.limits[0][1], range=self.limits, vmin=v_min, vmax=v_max)
+        ax_id1.set(title="PLK-1 to MEX-5s", xlabel="Long axis (um)", ylabel="Short axis (um)", ylim=(0,30))
         fig_id1.colorbar(im1)
 
-        self.ax_id2 = fig_id1.add_subplot(2, 2, 3)
-        hist2, xbins2, ybins2, im2 = self.ax_id2.hist2d(x3, y3, bins=self.limits[0][1], range=self.limits)
-        self.ax_id2.set_title("PLK-1 to MEX-5f")
-        self.ax_id2.set_xlabel("Long axis (um)")
-        self.ax_id2.set_ylabel("Short axis (um)")
+        ax_id2 = fig_id1.add_subplot(4, 1, 3)
+        hist2, xbins2, ybins2, im2 = ax_id2.hist2d(x3, y3, bins=self.limits[0][1], range=self.limits, vmin=v_min, vmax=v_max)
+        ax_id2.set(title="PLK-1 to MEX-5f", xlabel="Long axis (um)", ylabel="Short axis (um)", ylim=(0,30))
         fig_id1.colorbar(im2)
-
-        self.ax_id3 = fig_id1.add_subplot(2, 2, 4)
-        hist3, xbins3, ybins3, im3 = self.ax_id3.hist2d(x4, y4, bins=self.limits[0][1], range=self.limits)
-        self.ax_id3.set_title("PLK-1")
-        self.ax_id3.set_xlabel("Long axis (um)")
-        self.ax_id3.set_ylabel("Short axis (um)")
-        fig_id1.colorbar(im3)
-        
-        self.data_movie_1 = hist3
+        fig_id1.tight_layout()
         fig_id1.canvas.draw()
+
         if self.counter % autosave == 0: 
             plt.imsave(os.path.join(self.path, f'Graphs/PLK-1-Embryo_t-{self.counter}.png'), np.array(fig_id1.canvas.renderer.buffer_rgba()))
 
+        self.data_movie_1 = hist3
         density = self.limits[0][1] / self.limits[0][1]
 
         for xbin in range(0, len(xbins) - 1):
@@ -285,10 +283,11 @@ class Plot2D:
         self.av_velocity.set_ylabel("Mean velocity of PLK-1 species")
         self.av_velocity.set_xlabel("Embryo length (um)")
 
+        fig_id_ratio.tight_layout()
         fig_id_ratio.canvas.draw()
 
         if self.counter % autosave == 0: 
-            plt.imsave(os.path.join(self.path, f'Graphs/PLK-1-PlotA_t-{self.counter}.png'), np.array(fig_id_ratio.canvas.renderer.buffer_rgba()))  
+            plt.imsave(os.path.join(self.path, f'Graphs/PLK-1-PlotB_t-{self.counter}.png'), np.array(fig_id_ratio.canvas.renderer.buffer_rgba()))  
 
         #plt.show(block=False)
         #plt.pause(0.1)
