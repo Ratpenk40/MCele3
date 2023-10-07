@@ -29,7 +29,7 @@ class Plot2D():
     
     global fig, fig1, fig2, fig_id1, fig_id2, fig_id_ratio, fig_root_based, fig_movie
     fig = plt.figure()
-    fig_id1 = plt.figure()
+    fig_id1 = plt.figure(figsize=[6, 8])
     fig_id_ratio = plt.figure(figsize=[9.6, 7.2])
     fig_root_based = plt.figure()
     
